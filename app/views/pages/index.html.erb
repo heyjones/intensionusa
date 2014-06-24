@@ -1,0 +1,41 @@
+<h1>Dashboard</h1>
+
+<h2>Categories</h2>
+<ul>
+	<% @categories.each do |category| %>
+		<li><%= link_to category.name, category %></li>
+		<ul>
+			<% category.subcategories.each do |subcategory| %>
+				<li><%= link_to subcategory.name, subcategory %></li>
+			<% end %>
+			<li><%= link_to 'Add', new_category_subcategory_path(category), :class => 'btn btn-success' %></li>
+		</ul>
+	<% end %>
+	<li><%= link_to 'Add', new_category_path %></li>
+</ul>
+
+<h2>Materials</h2>
+<ul>
+	<% @materials.each do |material| %>
+		<li><%= link_to material.name, material %></li>
+	<% end %>
+	<li><%= link_to 'Add', new_material_path %></li>
+</ul>
+
+<h2>Models</h2>
+<ul>
+	<% @makes.each do |make| %>
+		<li><%= make.name %></li>
+		<ul>
+			<% make.models.each do |model| %>
+				<li><%= model.name %></li>
+			<% end %>
+		</ul>
+	<% end %>
+</ul>
+
+<h2>Products</h2>
+
+<% @products.each do |product| %>
+	<%= product.title %><br>
+<% end %>

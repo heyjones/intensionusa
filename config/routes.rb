@@ -1,9 +1,19 @@
 Intensionusa::Application.routes.draw do
+
+  resources :categories do
+ 	 resources :subcategories, :shallow => true
+  end
+
+  resources :materials
+
+  resources :makes
+  resources :models
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'shopify#index'
+  root 'pages#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

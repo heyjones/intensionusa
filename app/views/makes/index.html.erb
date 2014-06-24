@@ -1,0 +1,27 @@
+<h1>Listing makes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @makes.each do |make| %>
+      <tr>
+        <td><%= make.name %></td>
+        <td><%= link_to 'Show', make %></td>
+        <td><%= link_to 'Edit', edit_make_path(make) %></td>
+        <td><%= link_to 'Destroy', make, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Make', new_make_path %>
