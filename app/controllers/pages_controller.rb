@@ -3,6 +3,6 @@ class PagesController < ApplicationController
   	@categories = Category.all
   	@materials = Material.all
   	@makes = Make.all
-  	@products = ShopifyAPI::Product.find(:all, :params => {:limit => 10})
+  	@products = ShopifyAPI::Product.find(:all)
   end
 end

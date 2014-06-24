@@ -10,6 +10,7 @@ class ModelsController < ApplicationController
   # GET /models/1
   # GET /models/1.json
   def show
+  	@products = ShopifyAPI::Product.find(:all)
   end
 
   # GET /models/new

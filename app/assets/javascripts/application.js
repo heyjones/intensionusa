@@ -14,3 +14,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+	$(document).ready(function(){
+		$('input[name="model_product[product_id][]"]').change(function(){
+			alert($(this).val() + ' ' + $(this).is(':checked'));
+		});
+	});
