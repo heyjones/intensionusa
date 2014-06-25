@@ -21,8 +21,15 @@
 </p>
 
 <p>
-	<%= collection_check_boxes(:model_product, :product_id, @products, :id, :title) %>
-</p>
+	<strong>Products</strong><br>
+<%
+	@model.model_products.each do |model_product|
+		@product = ShopifyAPI::Product.find(model_product.product_id)
+%>
+	<%= @product.title %><br>
+<%
+	end
+%>
 
 <%= link_to 'Edit', edit_model_path(@model) %> |
 <%= link_to 'Back', models_path %>

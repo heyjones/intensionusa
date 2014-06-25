@@ -7,7 +7,9 @@ Intensionusa::Application.routes.draw do
   resources :materials
 
   resources :makes
-  resources :models
+  resources :models do
+  	resources :model_products
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

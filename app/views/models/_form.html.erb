@@ -27,6 +27,17 @@
     <%= f.label :price %><br>
     <%= f.text_field :price %>
   </div>
+  <div class="field">
+  	<%
+  		@products.each do |product|
+  			@product = ShopifyAPI::Product.find(product.id)
+	%>
+        <%= check_box :model, :model_products, { :checked => @model.model_products.where(:product_id => product.id).any?, :multiple => true }, product.id, nil %>
+        <%= label_tag @product.title %>
+   <%
+   		end
+   	%>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

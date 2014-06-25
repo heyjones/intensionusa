@@ -10,16 +10,17 @@ class ModelsController < ApplicationController
   # GET /models/1
   # GET /models/1.json
   def show
-  	@products = ShopifyAPI::Product.find(:all)
   end
 
   # GET /models/new
   def new
     @model = Model.new
+  	@products = ShopifyAPI::Product.find(:all)
   end
 
   # GET /models/1/edit
   def edit
+  	@products = ShopifyAPI::Product.find(:all)
   end
 
   # POST /models
@@ -43,6 +44,16 @@ class ModelsController < ApplicationController
   def update
     respond_to do |format|
       if @model.update(model_params)
+      	
+		ModelProduct.where(:model_id => @model.id).delete_all
+		puts model_params
+	 	unless params[:model_products].nil?
+	 		puts "FUUUUKC!!!!!"
+	# 		params[:model_products].each do |product_id|
+	# 			ModelProduct.create(:model_id => @model.id, :product_id => product_id)
+	# 		end
+	 	end
+
         format.html { redirect_to @model, notice: 'Model was successfully updated.' }
         format.json { head :no_content }
       else
@@ -70,6 +81,7 @@ class ModelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def model_params
-      params.require(:model).permit(:make_id, :material_id, :name, :price)
+      #params[:model][:model_products] ||= []
+      params.require(:model).permit(:make_id, :material_id, :name, :price, :model_products)
     end
 end
