@@ -11,7 +11,11 @@ class ShopifyController < ApplicationController
 	end
 
   def savings_calculator
-  	@model = Model.first
+  	if params[:material_id]
+  		@model = Model.first
+  	else
+  		@model = Model.last
+  	end
   	render :json => @model.to_json(:include => [ :make, :model_products ])
   end
 

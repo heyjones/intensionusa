@@ -46,12 +46,10 @@ class ModelsController < ApplicationController
       if @model.update(model_params)
       	
 # 		ModelProduct.where(:model_id => @model.id).delete_all
-# 		puts model_params
 # 	 	unless params[:model_products].nil?
-# 	 		puts "FUUUUKC!!!!!"
-# 	# 		params[:model_products].each do |product_id|
-# 	# 			ModelProduct.create(:model_id => @model.id, :product_id => product_id)
-# 	# 		end
+# 	 		params[:model_products].each do |product_id|
+# 	 			ModelProduct.create(:model_id => @model.id, :product_id => product_id)
+# 	 		end
 # 	 	end
 
         format.html { redirect_to @model, notice: 'Model was successfully updated.' }
