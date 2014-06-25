@@ -11,6 +11,10 @@ Intensionusa::Application.routes.draw do
   	resources :model_products
   end
 
+  get 'shopify/savings-calculator' => 'shopify#savings_calculator'
+  get 'shopify/find-your-wheelset' => 'shopify#find_your_wheelset'
+  get 'shopify/wheel-customizer' => 'shopify#wheel_customizer'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
