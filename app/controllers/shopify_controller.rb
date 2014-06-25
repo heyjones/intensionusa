@@ -21,6 +21,8 @@ class ShopifyController < ApplicationController
   end
 
   def find_your_wheelset
+  	@products = ShopifyAPI::Product.find(:all)
+  	render :json => @products
   end
 
   def wheel_customizer
