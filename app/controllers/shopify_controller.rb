@@ -21,7 +21,11 @@ class ShopifyController < ApplicationController
   end
 
   def find_your_wheelset
-  	@products = ShopifyAPI::Product.find(:all)
+  	if params.has_key?(:price)
+  		@products = ShopifyAPI::Product.find(:all)
+  	else
+  		@products = ShopifyAPI::Product.find(:all)
+  	end
   	render :json => @products
   end
 
