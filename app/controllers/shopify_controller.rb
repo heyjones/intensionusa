@@ -1,5 +1,15 @@
 class ShopifyController < ApplicationController
 
+	def products
+		@products = ShopifyAPI::Product.find(:all)
+		render :json => @products
+	end
+
+	def product
+		@product = ShopifyAPI::Product.find(params[:id])
+		render :json => @product
+	end
+
   def savings_calculator
   	@model = Model.first
   	#@products = ShopifyAPI::Product.find(:all, :params => {:limit => 3})

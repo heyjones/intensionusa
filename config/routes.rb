@@ -11,6 +11,8 @@ Intensionusa::Application.routes.draw do
   	resources :model_products
   end
 
+  get 'shopify/products' => 'shopify#products'
+  get 'shopify/:id/product' => 'shopify#product'
   get 'shopify/savings-calculator' => 'shopify#savings_calculator'
   get 'shopify/find-your-wheelset' => 'shopify#find_your_wheelset'
   get 'shopify/wheel-customizer' => 'shopify#wheel_customizer'
