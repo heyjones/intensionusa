@@ -10,6 +10,7 @@ Intensionusa::Application.routes.draw do
   resources :models do
   	resources :model_products
   end
+  get 'makes/:id/models' => 'models#make'
 
   get 'shopify/products' => 'shopify#products'
   get 'shopify/:id/product' => 'shopify#product'

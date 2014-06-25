@@ -1,6 +1,11 @@
 class ModelsController < ApplicationController
   before_action :set_model, only: [:show, :edit, :update, :destroy]
 
+  def make
+    @models = Model.where(make_id: params[:id])
+    render :json => @models
+  end
+
   # GET /models
   # GET /models.json
   def index
