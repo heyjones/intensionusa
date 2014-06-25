@@ -11,7 +11,11 @@ class ShopifyController < ApplicationController
 	end
 
   def savings_calculator
-	@model = Model.find(material_id => params[:material_id])
+	if params.has_key?(:material_id)
+		@model = Model.where(:material_id => params[:material_id])
+	else
+		@model = Model.limit(1).order('random()')
+	end
   	render :json => @model.to_json(:include => [ :make, :model_products ])
   end
 
