@@ -21,6 +21,8 @@ Intensionusa::Application.routes.draw do
   get 'products/:id' => 'products#show'
   post 'products/:id' => 'products#update'
 
+  get 'shopify/product-types' => 'shopify#product_types'
+  get 'shopify/:product_type/products' => 'shopify#product_type_products'
   get 'shopify/products' => 'shopify#products'
   get 'shopify/:id/product' => 'shopify#product'
   get 'shopify/:product_type/metafields' => 'shopify#metafields'

@@ -1,5 +1,14 @@
 class ShopifyController < ApplicationController
 
+	def product_types
+		@product_types = ShopifyAPI::Product.find(:all).map(&:product_type).uniq
+		render :json => @product_types
+	end
+	def product_type_products
+		@products = ShopifyAPI::Product.find(:all, :params => {:product_type => params[:product_type]})
+		render :json => @products
+	end
+
 	def products
 		@products = ShopifyAPI::Product.find(:all)
 		render :json => @products
