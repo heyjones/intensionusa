@@ -12,7 +12,11 @@ class ShopifyController < ApplicationController
 			format.html { render action: 'product' }
 			format.json { render :json => @product }
 		end
-		
+	end
+
+	def metafields
+		@metafields = Metafield.where(:product_type => params[:product_type])
+		render :json => @metafields
 	end
 
   def savings_calculator

@@ -1,7 +1,45 @@
 <h1>Products</h1>
 
-<ul>
-<% @products.each do |product| %>
-	<li><a href="/products/<%= product.id %>"><%= product.title %></a></li>
+<% @product_types.each do |product_type| %>
+	<h2><%= product_type %></h2>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th width="25%">Model</th>
+				<th width="25%">Brand</th>
+				<%
+					@metafields = Metafield.where(:product_type => product_type)
+					@metafields.each do |metafield|
+				%>
+					<th><%= format_key(metafield.key) %></th>
+				<%
+					end
+				%>
+				<th>Price</th>
+			</tr>
+		</thead>
+		<tbody>
+	<%
+		products = ShopifyAPI::Product.find(:all, :params => {:product_type => product_type})
+		products.each do |product|
+	%>
+		<tr>
+			<td><a href="/products/<%= product.id %>"><%= product.title %></a></td>
+			<td><%= product.vendor %></td>
+			<%
+				@metafields = Metafield.where(:product_type => product_type)
+				@metafields.each do |metafield|
+					value = ShopifyAPI::Metafield.find(:first, :params=> { :resource => 'products', :resource_id => product.id, :namespace => 'seedcms', :key => metafield.key } )
+			%>
+				<td><%= value.value unless value.nil? %></td>
+			<%
+				end
+			%>
+			<td><%= number_to_currency(product.variants[0].price) %></td>
+		</tr>
+	<%
+		end
+	%>
+		</tbody>
+	</table>
 <% end %>
-</ul>

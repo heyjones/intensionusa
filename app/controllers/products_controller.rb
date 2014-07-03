@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   def index
+  	@product_types = ShopifyAPI::Product.find(:all).map(&:product_type).uniq
   	@products = ShopifyAPI::Product.find(:all)
   end
 

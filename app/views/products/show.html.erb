@@ -1,20 +1,52 @@
-<h1><a href="/products">Products</a> > <%= @product.title %></h1>
+<h1><a href="/products">Products</a> | <%= @product.title %></h1>
 
-<h2>Metafields</h2>
+<div class="row">
+	<div class="col-sm-8">
 
-<%= form_tag({ controller: 'products', action: 'update' }, method: 'post') do %>
-	<% @metafields.each do |metafield| %>
-		<div class="form-group">
-			<label><%= metafield.key.capitalize %></label>
-			<% if metafield.values.empty? %>
-				<input type="text" id="seedcms_<%= metafield.key %>" name="seedcms[<%= metafield.key %>]" class="form-control">
-			<% else %>
-				<%= select_tag 'seedcms['+metafield.key+']', options_from_collection_for_select(metafield.values, 'name', 'name'), { :class => 'form-control' } %>
+		<h2>Specs</h2>
+
+		<table class="table table-striped">
+			<tbody>
+				<tr>
+					<td><strong>Model</strong></td>
+					<td><%= @product.title %></td>
+				</tr>
+				<tr>
+					<td><strong>Brand</strong></td>
+					<td><%= @product.vendor %></td>
+				</tr>
+				<tr>
+					<td><strong>Type</strong></td>
+					<td><%= @product.product_type %></td>
+				</tr>
+				<tr>
+					<td><strong>Price</strong></td>
+					<td><%= number_to_currency(@product.variants[0].price) %></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+	<div class="col-sm-4">
+
+		<h2>Metafields</h2>
+		
+		<%= form_tag({ controller: 'products', action: 'update' }, method: 'post') do %>
+			<% @metafields.each do |metafield| %>
+				<div class="form-group">
+					<label><%= format_key(metafield.key) %></label>
+					<% if metafield.values.empty? %>
+						<input type="text" id="seedcms_<%= metafield.key %>" name="seedcms[<%= metafield.key %>]" class="form-control">
+					<% else %>
+						<%= select_tag 'seedcms['+metafield.key+']', options_from_collection_for_select(metafield.values, 'name', 'name'), { :class => 'form-control' } %>
+					<% end %>
+				</div>
 			<% end %>
-		</div>
-	<% end %>
-		<button type="submit" class="btn btn-primary">Save</button>
-<% end %>
+				<button type="submit" class="btn btn-primary">Save</button>
+		<% end %>
+
+	</div>
+</div>
 
 <script>
 <% @product.metafields.each do |metafield| %>
