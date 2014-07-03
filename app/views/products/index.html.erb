@@ -24,7 +24,12 @@
 		products.each do |product|
 	%>
 		<tr>
-			<td><a href="/products/<%= product.id %>"><%= product.title %></a></td>
+			<td>
+				<a href="/products/<%= product.id %>">
+					<img src="<%= product.images[0].src unless product.images[0].nil? %>" style="margin-right: 5px; width: 50px;">
+					<%= product.title %>
+				</a>
+			</td>
 			<td><%= product.vendor %></td>
 			<%
 				@metafields = Metafield.where(:product_type => product_type)
