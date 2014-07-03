@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  product_type: MyString
+  description: MyString
+  key: MyString
+  namespace: MyString
+  value: MyString
+  value_type: MyString
+
+two:
+  product_type: MyString
+  description: MyString
+  key: MyString
+  namespace: MyString
+  value: MyString
+  value_type: MyString

@@ -60,3 +60,9 @@ Material.delete_all
 ['Alloy', 'Carbon', 'Steel', 'Aluminum', 'Brass', 'Nylon', 'Titanium'].each do |material|
 	Material.create(name: material)
 end
+
+Metafield.delete_all
+['Rims,size','Rims,height','Rims,width'].each do |metafield|
+	product_type, key = metafield.chomp.split(',')
+    Metafield.create(product_type: product_type, key: key)
+end

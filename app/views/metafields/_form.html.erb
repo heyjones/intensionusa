@@ -1,0 +1,25 @@
+<%= form_for(@metafield) do |f| %>
+  <% if @metafield.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@metafield.errors.count, "error") %> prohibited this metafield from being saved:</h2>
+
+      <ul>
+      <% @metafield.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :product_type %><br>
+    <%= select(:metafield, :product_type, @product_types) %>
+  </div>
+  <div class="field">
+    <%= f.label :key %><br>
+    <%= f.text_field :key %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

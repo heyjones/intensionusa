@@ -14,3 +14,13 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+var shopify = '//intensionusa.myshopify.com'
+
+$('#product').submit(function(e){
+	e.preventDefault();
+	data = $(this).serialize();
+	$.post(shopify + '/admin/metafields.json', function(data){
+		console.log(data);
+	});
+});

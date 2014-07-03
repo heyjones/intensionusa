@@ -7,7 +7,12 @@ class ShopifyController < ApplicationController
 
 	def product
 		@product = ShopifyAPI::Product.find(params[:id])
-		render :json => @product
+		@metafields = Metafield.where(:product_type => @product.product_type)
+		respond_to do |format|
+			format.html { render action: 'product' }
+			format.json { render :json => @product }
+		end
+		
 	end
 
   def savings_calculator
@@ -17,11 +22,7 @@ class ShopifyController < ApplicationController
   end
 
   def find_your_wheelset
-  	if params.has_key?(:price)
-  		@products = ShopifyAPI::Product.find(:all)
-  	else
-  		@products = ShopifyAPI::Product.find(:all)
-  	end
+	@products = ShopifyAPI::Product.find(:all)
   	render :json => @products
   end
 

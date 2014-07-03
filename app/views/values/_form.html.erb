@@ -1,0 +1,26 @@
+<%= form_for [@metafield, @value] do |f| %>
+  <% if @value.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@value.errors.count, "error") %> prohibited this value from being saved:</h2>
+
+      <ul>
+      <% @value.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :metafield_id %><br>
+    <%= @metafield.key %>
+    <%= f.hidden_field :metafield_id, :value => params[:metafield_id] %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

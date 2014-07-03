@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140624050553) do
+ActiveRecord::Schema.define(version: 20140703042514) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -27,6 +27,13 @@ ActiveRecord::Schema.define(version: 20140624050553) do
 
   create_table "materials", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "metafields", force: true do |t|
+    t.string   "product_type"
+    t.string   "key"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -49,6 +56,13 @@ ActiveRecord::Schema.define(version: 20140624050553) do
 
   create_table "subcategories", force: true do |t|
     t.integer  "category_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "values", force: true do |t|
+    t.integer  "metafield_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"

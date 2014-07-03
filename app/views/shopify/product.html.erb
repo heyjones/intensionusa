@@ -1,0 +1,21 @@
+<h1><%= @product.title %></h1>
+<p><%= @product.product_type %></p>
+
+<%
+	@metafields.each do |metafield|
+		value = ''
+		@product.metafields.each do |meta|
+			if meta.namespace = metafield.namespace && meta.key = metafield.key
+				value = meta.value
+			end
+		end
+%>
+	<label><%= metafield.key %></label>
+	<input type="text" name="<%= metafield.namespace %>[<%= metafield.key %>]" value="<%= value %>"><br>
+<%
+	end
+%>
+
+<% @product.metafields.each do |metafield| %>
+	<%= metafield.key %> - <%= metafield.namespace %> - <%= metafield.value %><br>
+<% end %>

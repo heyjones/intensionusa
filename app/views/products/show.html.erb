@@ -1,0 +1,23 @@
+<h1><a href="/products">Products</a> > <%= @product.title %></h1>
+
+<h2>Metafields</h2>
+
+<%= form_tag({ controller: 'products', action: 'update' }, method: 'post') do %>
+	<% @metafields.each do |metafield| %>
+		<div class="form-group">
+			<label><%= metafield.key.capitalize %></label>
+			<% if metafield.values.empty? %>
+				<input type="text" id="seedcms_<%= metafield.key %>" name="seedcms[<%= metafield.key %>]" class="form-control">
+			<% else %>
+				<%= select_tag 'seedcms['+metafield.key+']', options_from_collection_for_select(metafield.values, 'name', 'name'), { :class => 'form-control' } %>
+			<% end %>
+		</div>
+	<% end %>
+		<button type="submit" class="btn btn-primary">Save</button>
+<% end %>
+
+<script>
+<% @product.metafields.each do |metafield| %>
+	document.getElementById('seedcms_<%= metafield.key %>').value = '<%= raw metafield.value %>';
+<% end %>
+</script>

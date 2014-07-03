@@ -6,12 +6,6 @@
 		<ul>
 			<% @categories.each do |category| %>
 				<li><%= link_to category.name, category %></li>
-				<ul>
-					<% category.subcategories.each do |subcategory| %>
-						<li><%= link_to subcategory.name, subcategory %></li>
-					<% end %>
-					<li><%= link_to 'Add', new_category_subcategory_path(category), :class => 'btn btn-xs btn-success' %></li>
-				</ul>
 			<% end %>
 		</ul>
 	</div>
@@ -43,8 +37,23 @@
 		<h2>Products</h2>
 		<ul>
 		<% @products.each do |product| %>
-			<li><a href="https://intensionusa.myshopify.com/products/<%= product.handle %>" target="_blank"><%= product.title %></a></li>
+			<li><a href="/products/<%= product.id %>"><%= product.title %></a></li>
 		<% end %>
 		</ul>
+		<h2>Metafields</h2>
+		<%= link_to 'Add', new_metafield_path, :class => 'btn btn-sm btn-success' %>
+		<% @metafields.each do |metafield| %>
+			<h3><%= metafield %></h3>
+			<ul>
+			<%
+				@metafield = Metafield.where(:product_type => metafield)
+				@metafield.each do |meta|
+			%>
+				<li><%= link_to meta.key, meta %></li>
+			<%
+				end
+			%>
+			</ul>
+		<% end %>
 	</div>
 </div>

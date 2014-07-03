@@ -1,0 +1,17 @@
+<h1>Metafields</h1>
+
+<%= link_to 'Add', new_metafield_path, :class => 'btn btn-sm btn-success' %>
+
+<% @product_types.each do |product_type| %>
+	<h3><%= product_type %></h3>
+	<ul>
+	<%
+		@metafields = Metafield.where(:product_type => product_type)
+		@metafields.each do |metafield|
+	%>
+		<li><%= link_to metafield.key, metafield %></li>
+	<%
+		end
+	%>
+	</ul>
+<% end %>

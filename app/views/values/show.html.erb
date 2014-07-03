@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Metafield:</strong>
+  <%= @value.metafield_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @value.name %>
+</p>
+
+<%= link_to 'Edit', edit_value_path(@value) %> |
+<%= link_to 'Back', values_path %>

@@ -1,5 +1,10 @@
 Intensionusa::Application.routes.draw do
 
+
+  resources :metafields do
+  	resources :values, :shallow => true
+  end
+
   resources :categories do
  	 resources :subcategories, :shallow => true
   end
@@ -11,6 +16,10 @@ Intensionusa::Application.routes.draw do
   	resources :model_products
   end
   get 'makes/:id/models' => 'models#make'
+
+  get 'products' => 'products#index'
+  get 'products/:id' => 'products#show'
+  post 'products/:id' => 'products#update'
 
   get 'shopify/products' => 'shopify#products'
   get 'shopify/:id/product' => 'shopify#product'

@@ -4,5 +4,6 @@ class PagesController < ApplicationController
   	@materials = Material.all
   	@makes = Make.all
   	@products = ShopifyAPI::Product.find(:all)
+  	@metafields = Metafield.uniq.pluck(:product_type)
   end
 end

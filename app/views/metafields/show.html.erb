@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Product type:</strong>
+  <%= @metafield.product_type %>
+</p>
+
+<p>
+  <strong>Key:</strong>
+  <%= @metafield.key %>
+</p>
+
+<h2>Values</h2>
+
+<ul>
+<% @metafield.values.each do |value| %>
+	<li><%= value.name %></li>
+<% end %>
+	<li><%= link_to 'Add', new_metafield_value_path(@metafield), :class => 'btn btn-xs btn-success' %></li>
+</ul>
+
+<%= link_to 'Edit', edit_metafield_path(@metafield) %> |
+<%= link_to 'Back', metafields_path %>
