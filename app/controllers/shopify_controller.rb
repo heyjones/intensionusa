@@ -25,7 +25,7 @@ class ShopifyController < ApplicationController
 
 	def metafields
 		@metafields = Metafield.where(:product_type => params[:product_type])
-		render :json => @metafields
+		render :json => @metafields.to_json(:include => :values)
 	end
 
   def savings_calculator
