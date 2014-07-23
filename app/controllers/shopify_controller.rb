@@ -35,7 +35,7 @@ class ShopifyController < ApplicationController
   end
 
   def find_your_wheelset
-	@products = ShopifyAPI::Product.find(:all, :params => {:product_type => 'Wheelsets'})
+	@products = ShopifyAPI::Product.find(:all, :params => {:product_type => params[:product_type]})
   	render :json => @products
   end
 
