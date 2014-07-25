@@ -4,7 +4,8 @@ class ValuesController < ApplicationController
   # GET /values
   # GET /values.json
   def index
-    @values = Value.all
+    #@values = Value.all
+    @values = Value.where(metafield_id: params[:metafield_id])
   end
 
   # GET /values/1
