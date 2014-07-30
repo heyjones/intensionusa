@@ -9,7 +9,7 @@ json.array! @products do |product|
 		@metafields.each do |metafield|
 			value = ShopifyAPI::Metafield.find(:first, :params=> { :resource => 'products', :resource_id => product.id, :namespace => 'seedcms', :key => metafield.key })
 			if value.nil?
-				json.set!(metafield.key, nil)
+				json.set!(metafield.key, '')
 			else
 				json.set!(metafield.key, value.value)
 			end
