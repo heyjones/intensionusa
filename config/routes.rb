@@ -1,12 +1,15 @@
 Intensionusa::Application.routes.draw do
 
 
+  resources :sizes
+
   resources :metafields do
   	resources :values, :shallow => true
   end
 
   resources :categories do
- 	 resources :subcategories, :shallow => true
+ 	 resources :sizes, :shallow => true
+# 	 resources :subcategories, :shallow => true
   end
 
   resources :materials

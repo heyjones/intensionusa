@@ -6,6 +6,12 @@
 		<ul>
 			<% @categories.each do |category| %>
 				<li><%= link_to category.name, category %></li>
+				<ul>
+					<% category.sizes.each do |size| %>
+						<li><%= link_to size.name, size %></li>
+					<% end %>
+					<li><%= link_to 'Add', new_category_size_path(category), :class => 'btn btn-xs btn-success' %></li>
+				</ul>
 			<% end %>
 		</ul>
 	</div>

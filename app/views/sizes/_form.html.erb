@@ -1,0 +1,26 @@
+<%= form_for [@category, @size] do |f| %>
+  <% if @size.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@size.errors.count, "error") %> prohibited this size from being saved:</h2>
+
+      <ul>
+      <% @size.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :category_id %><br>
+    <%= @category.name %>
+    <%= f.hidden_field :category_id, :value => params[:category_id] %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
