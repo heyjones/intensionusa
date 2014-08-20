@@ -36,13 +36,20 @@
 		<h2>Metafields</h2>
 		
 		<%= form_tag({ controller: 'products', action: 'update' }, method: 'post') do %>
-			<% @metafields.each do |metafield| %>
+			<%
+				@metafields.each do |metafield|
+					meta = @product.metafields.select { |x| x.key.eql? metafield.key }
+					value = ''
+					if !meta.empty?
+						value = meta.first.value
+					end
+			%>
 				<div class="form-group">
 					<label><%= format_key(metafield.key) %></label>
 					<% if metafield.values.empty? %>
-						<input type="text" id="seedcms_<%= metafield.key %>" name="seedcms[<%= metafield.key %>]" class="form-control">
+						<input type="text" id="seedcms_<%= metafield.key %>" name="seedcms[<%= metafield.key %>]" class="form-control" value="<%= value %>">
 					<% else %>
-						<%= select_tag 'seedcms['+metafield.key+']', options_from_collection_for_select(metafield.values, 'name', 'name'), { :class => 'form-control' } %>
+						<%= select_tag 'seedcms['+metafield.key+']', options_from_collection_for_select(metafield.values, 'name', 'name', value), { :prompt => '', :class => 'form-control' } %>
 					<% end %>
 				</div>
 			<% end %>
@@ -51,9 +58,3 @@
 
 	</div>
 </div>
-
-<script>
-<% @product.metafields.each do |metafield| %>
-	document.getElementById('seedcms_<%= metafield.key %>').value = '<%= raw metafield.value %>';
-<% end %>
-</script>

@@ -8,8 +8,8 @@
 				<th width="25%">Model</th>
 				<th width="25%">Brand</th>
 				<%
-					@metafields = Metafield.where(:product_type => product_type)
-					@metafields.each do |metafield|
+					metafields = Metafield.where(:product_type => product_type)
+					metafields.each do |metafield|
 				%>
 					<th><%= format_key(metafield.key) %></th>
 				<%
@@ -32,11 +32,10 @@
 			</td>
 			<td><%= product.vendor %></td>
 			<%
-				@metafields = Metafield.where(:product_type => product_type)
-				@metafields.each do |metafield|
-					value = ShopifyAPI::Metafield.find(:first, :params=> { :resource => 'products', :resource_id => product.id, :namespace => 'seedcms', :key => metafield.key } )
+				metafields.each do |metafield|
+					meta = product.metafields.select { |x| x.key.eql? metafield.key }
 			%>
-				<td><%= value.value unless value.nil? %></td>
+				<td><%= meta.first.value unless meta.empty? %></td>
 			<%
 				end
 			%>
