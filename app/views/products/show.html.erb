@@ -37,11 +37,12 @@
 		
 		<%= form_tag({ controller: 'products', action: 'update' }, method: 'post') do %>
 			<%
+				meta = @product.metafields
 				@metafields.each do |metafield|
-					meta = @product.metafields.select { |x| x.key.eql? metafield.key }
+					m = meta.select { |x| x.key.eql? metafield.key }
 					value = ''
-					if !meta.empty?
-						value = meta.first.value
+					if !m.empty?
+						value = m.first.value
 					end
 			%>
 				<div class="form-group">

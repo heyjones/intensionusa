@@ -32,10 +32,11 @@
 			</td>
 			<td><%= product.vendor %></td>
 			<%
+				meta = product.metafields
 				metafields.each do |metafield|
-					meta = product.metafields.select { |x| x.key.eql? metafield.key }
+					m = meta.select { |x| x.key.eql? metafield.key }
 			%>
-				<td><%= meta.first.value unless meta.empty? %></td>
+				<td><%= m.first.value unless m.empty? %></td>
 			<%
 				end
 			%>

@@ -6,12 +6,13 @@ json.array! @products do |product|
 	json.image product.image.src
 	json.price 0.0
 	json.set! :metafields do
+		meta = product.metafields
 		metafields.each do |metafield|
-			meta = product.metafields.select { |x| x.key.eql? metafield.key }
-			if meta.empty?
+			m = meta.select { |x| x.key.eql? metafield.key }
+			if m.empty?
 				json.set!(metafield.key, '')
 			else
-				json.set!(metafield.key, meta.first.value)
+				json.set!(metafield.key, m.first.value)
 			end
 		end
 	end
