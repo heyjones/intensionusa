@@ -37,14 +37,40 @@ class ShopifyController < ApplicationController
   end
 
   def find_your_wheelset
-	@products = ShopifyAPI::Product.find(:all, :params => {:product_type => 'Wheelsets'})
 
+#	grab products, metafields and params
+	@products = ShopifyAPI::Product.find(:all, :params => {:product_type => 'Wheelsets'})
+	@metafields = Metafield.where(:product_type => 'Wheelsets')
+	@params = params.to_a
+
+#	filter by price
 	products = @products.to_a
 	products.reject! { |p| p.variants.first.price.to_i < params[:price_low].to_i }
 	products.reject! { |p| p.variants.first.price.to_i > params[:price_high].to_i }
 
-	params.each do |param|
-		logger.info param
+#	build an array of metafields / params
+	meta = []
+ 	@metafields.each do |metafield|
+ 		if params.has_key? metafield.key
+ 			if params[metafield.key] != ''
+				meta.push([metafield.key, params[metafield.key]])
+ 			end
+		end
+ 	end
+
+#	loop through each product and remove based on metafields
+	products.each do |product|
+		metafields = product.metafields
+ 		meta.each do |m|
+ 			metafields.each do |metafield|
+ 				if m[0] == metafield.key
+ 					if m[1] != metafield.value
+	 					products.reject! { |p| p.id.eql? product.id }
+ 					end
+ 				end
+ 			end
+ 		end
+#		products.reject! { 1.eql? 1 }
 	end
 
   	render :json => @products
