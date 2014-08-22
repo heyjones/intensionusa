@@ -59,19 +59,20 @@ class ShopifyController < ApplicationController
  	end
 
 #	loop through each product and remove based on metafields
+	id = []
 	products.each do |product|
 		metafields = product.metafields
  		meta.each do |m|
  			metafields.each do |metafield|
  				if m[0] == metafield.key
  					if m[1] != metafield.value
-	 					products.reject! { |p| p.id.eql? product.id }
+	 					id.push(product.id)
  					end
  				end
  			end
  		end
-#		products.reject! { 1.eql? 1 }
 	end
+	products.reject! { |p| id.include? p.id }
 
   	render :json => @products
 
