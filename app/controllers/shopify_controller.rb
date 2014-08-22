@@ -52,12 +52,11 @@ class ShopifyController < ApplicationController
 	meta = []
  	@metafields.each do |metafield|
  		if params.has_key? metafield.key
- 			if params[metafield.key] != ''
+ 			unless params[metafield.key].empty?
 				meta.push([metafield.key, params[metafield.key]])
  			end
 		end
  	end
-
 #	loop through each product and remove based on metafields
 	id = []
 	products.each do |product|
@@ -65,7 +64,7 @@ class ShopifyController < ApplicationController
  		meta.each do |m|
  			metafields.each do |metafield|
  				if m[0] == metafield.key
- 					if m[1] != metafield.value
+ 					unless m[1].include? metafield.value
 	 					id.push(product.id)
  					end
  				end
