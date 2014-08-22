@@ -57,6 +57,7 @@ class ShopifyController < ApplicationController
  			end
 		end
  	end
+
 #	loop through each product and remove based on metafields
 	id = []
 	products.each do |product|
@@ -67,6 +68,10 @@ class ShopifyController < ApplicationController
  					unless m[1].include? metafield.value
 	 					id.push(product.id)
  					end
+ 				end
+ 				#filter by size
+ 				if metafield.key = 'Size'
+ 					
  				end
  			end
  		end
