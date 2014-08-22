@@ -26,7 +26,7 @@ class ShopifyController < ApplicationController
 	end
 
 	def metafields
-		@metafields = Metafield.where(:product_type => params[:product_type])
+		@metafields = Metafield.where(:product_type => params[:product_type]).joins(:values).select('DISTINCT metafields.*')
 		render :json => @metafields.to_json(:include => :values)
 	end
 
