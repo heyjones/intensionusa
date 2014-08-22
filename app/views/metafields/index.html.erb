@@ -12,10 +12,10 @@
 			@metafields = Metafield.where(:product_type => product_type)
 			@metafields.each do |metafield|
 		%>
-			<li><strong><%= format_key(metafield.key) %> <% if metafield.description.to_s != '' %><a class="info" title="<%= metafield.description %>"><i class="fa fa-info-circle"></i></a><% end %></strong></li>
+			<li><strong><%= link_to format_key(metafield.key), edit_metafield_path(metafield) %> <% if metafield.description.to_s != '' %><a class="info" title="<%= metafield.description %>"><i class="fa fa-info-circle"></i></a><% end %></strong></li>
 			<ul>
 			<% metafield.values.each do |value| %>
-				<li><%= value.name %></li>
+				<li><%= link_to value.name, edit_value_path(value) %></li>
 			<% end %>
 				<li><%= link_to 'Add', new_metafield_value_path(metafield), :class => 'text-success' %></li>
 			</ul>

@@ -38,12 +38,17 @@ class ShopifyController < ApplicationController
 
   def find_your_wheelset
 	@products = ShopifyAPI::Product.find(:all, :params => {:product_type => 'Wheelsets'})
-	@products.each do |product|
-		product.metafields.each do |metafield|
-		
-  		end
+
+	products = @products.to_a
+	products.reject! { |p| p.variants.first.price.to_i < params[:price_low].to_i }
+	products.reject! { |p| p.variants.first.price.to_i > params[:price_high].to_i }
+
+	params.each do |param|
+		logger.info param
 	end
+
   	render :json => @products
+
   end
 
   def wheel_customizer
