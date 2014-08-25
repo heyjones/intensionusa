@@ -4,7 +4,7 @@ json.array! @products do |product|
 	json.vendor product.vendor
 	json.title product.title
 	json.image product.image.src
-	json.price 0.0
+	json.price product.price
 	json.set! :metafields do
 		meta = product.metafields
 		metafields.each do |metafield|
