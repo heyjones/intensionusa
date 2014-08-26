@@ -8,7 +8,7 @@ Bundler.require(:default, Rails.env)
 
 module Intensionusa
   class Application < Rails::Application
-
+    config.middleware.delete ActionDispatch::ParamsParser
     # CORS
     config.middleware.use Rack::Cors do
 		allow do
