@@ -27,11 +27,12 @@ class ShopifyController < ApplicationController
 
 	def product_variant
 		@product = ShopifyAPI::Product.find(params[:id])
-		@variant = @product.add_variant(ShopifyAPI::Variant.new({
+		@product.variants << ShopifyAPI::Variant.new({
 			:option1 => SecureRandom.hex,
 			:price => params[:price]
-		}))
-		render :json => @variant.to_json()
+		})
+		@product.save
+		render :json => @product.variants.last.id
 	end
 
 	def metafields
