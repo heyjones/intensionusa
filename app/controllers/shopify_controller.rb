@@ -26,6 +26,7 @@ class ShopifyController < ApplicationController
 	end
 
 	def product_variant
+logger.info params[:price]
 		@product = ShopifyAPI::Product.find(params[:id])
 		@product.variants << ShopifyAPI::Variant.new({
 			:option1 => SecureRandom.hex,
