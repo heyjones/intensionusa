@@ -25,6 +25,15 @@ class ShopifyController < ApplicationController
 		end
 	end
 
+	def product_variant
+		@product = ShopifyAPI::Product.find(params[:id])
+		@variant = @product.add_variant(ShopifyAPI::Variant.new({
+			:option1 => SecureRandom.hex,
+			:price => params[:price]
+		}))
+		render :json => @variant.to_json()
+	end
+
 	def metafields
 		@metafields = Metafield.where(:product_type => params[:product_type])#.joins(:values).select('DISTINCT metafields.*')
 		render :json => @metafields.to_json(:include => :values)
