@@ -1,5 +1,7 @@
 class ShopifyController < ApplicationController
 
+	skip_before_filter :verify_authenticity_token
+
 	def product_types
 		@product_types = ShopifyAPI::Product.find(:all).map(&:product_type).uniq
 		render :json => @product_types
