@@ -28,7 +28,7 @@ Intensionusa::Application.routes.draw do
   get 'shopify/:product_type/products' => 'shopify#product_type_products'
   get 'shopify/products' => 'shopify#products'
   get 'shopify/:id/product' => 'shopify#product'
-  get 'shopify/:id/product/variant' => 'shopify#product_variant'
+  post 'shopify/:id/product/variant' => 'shopify#product_variant'
   get 'shopify/:product_type/metafields' => 'shopify#metafields'
   get 'shopify/savings-calculator' => 'shopify#savings_calculator'
   get 'shopify/find-your-wheelset' => 'shopify#find_your_wheelset'
