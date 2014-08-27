@@ -37,6 +37,7 @@ logger.info metafield.key
 	 		end
 		end
 		products.reject! { |p| id.include? p.id }
+		@productz = products
 		#render :json => @products
 		#format.json { render action: 'product_type_products' }
 	end
