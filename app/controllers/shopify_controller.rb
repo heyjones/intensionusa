@@ -11,6 +11,8 @@ class ShopifyController < ApplicationController
 #		grab products, metafields and params
 		@products = ShopifyAPI::Product.find(:all, :params => {:product_type => @product_type})
 		@metafields = Metafield.where(:product_type => @product_type)
+logger.info @metafields
+logger.info params
 #		build an array of metafields / params
 		meta = []
 	 	@metafields.each do |metafield|
