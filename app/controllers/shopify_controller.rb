@@ -20,6 +20,7 @@ class ShopifyController < ApplicationController
 	 			end
 			end
 	 	end
+logger.info meta
 #		loop through each product and remove based on metafields
 		id = []
 		@productz = @products.to_a
