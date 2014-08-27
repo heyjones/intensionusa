@@ -8,6 +8,7 @@ class ShopifyController < ApplicationController
 	end
 	def product_type_products
 		@product_type = params[:product_type]
+logger.info params[:metafields]
 		@products = ShopifyAPI::Product.find(:all, :params => {:product_type => @product_type})
 		#render :json => @products
 		#format.json { render action: 'product_type_products' }
