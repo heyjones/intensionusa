@@ -8,8 +8,35 @@ class ShopifyController < ApplicationController
 	end
 	def product_type_products
 		@product_type = params[:product_type]
-logger.info params[:metafields]
+#		grab products, metafields and params
 		@products = ShopifyAPI::Product.find(:all, :params => {:product_type => @product_type})
+		@metafields = Metafield.where(:product_type => @product_type)
+		@params = params[:metafields]
+#		build an array of metafields / params
+		meta = []
+	 	@metafields.each do |metafield|
+	 		if params.has_key? metafield.key
+	 			unless params[metafield.key].empty?
+					meta.push([metafield.key, params[metafield.key]])
+	 			end
+			end
+	 	end
+#		loop through each product and remove based on metafields
+		id = []
+		products = @products.to_a
+		products.each do |product|
+			metafields = product.metafields
+	 		meta.each do |m|
+	 			metafields.each do |metafield|
+	 				if m[0] == metafield.key
+	 					unless m[1].include? metafield.value
+		 					id.push(product.id)
+	 					end
+	 				end
+	 			end
+	 		end
+		end
+		products.reject! { |p| id.include? p.id }
 		#render :json => @products
 		#format.json { render action: 'product_type_products' }
 	end
