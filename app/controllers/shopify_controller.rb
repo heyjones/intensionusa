@@ -11,7 +11,6 @@ class ShopifyController < ApplicationController
 #		grab products, metafields and params
 		@products = ShopifyAPI::Product.find(:all, :params => {:product_type => @product_type})
 		@metafields = Metafield.where(:product_type => @product_type)
-		@params = params[:metafields]
 #		build an array of metafields / params
 		meta = []
 	 	@metafields.each do |metafield|
@@ -29,6 +28,7 @@ class ShopifyController < ApplicationController
 	 		meta.each do |m|
 	 			metafields.each do |metafield|
 	 				if m[0] == metafield.key
+logger.info metafield.key
 	 					unless m[1].include? metafield.value
 		 					id.push(product.id)
 	 					end
@@ -56,7 +56,6 @@ class ShopifyController < ApplicationController
 	end
 
 	def product_variant
-logger.info params[:price]
 		@product = ShopifyAPI::Product.find(params[:id])
 		@product.variants << ShopifyAPI::Variant.new({
 			:option1 => SecureRandom.hex,
