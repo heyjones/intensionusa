@@ -11,8 +11,6 @@ class ShopifyController < ApplicationController
 #		grab products, metafields and params
 		@products = ShopifyAPI::Product.find(:all, :params => {:product_type => @product_type})
 		@metafields = Metafield.where(:product_type => @product_type)
-logger.info @metafields
-logger.info params
 #		build an array of metafields / params
 		meta = []
 	 	@metafields.each do |metafield|
@@ -22,11 +20,10 @@ logger.info params
 	 			end
 			end
 	 	end
-logger.info meta
 #		loop through each product and remove based on metafields
 		id = []
-		@productz = @products.to_a
-		@productz.each do |product|
+		@results = @products.to_a
+		@results.each do |product|
 			metafields = product.metafields
 	 		meta.each do |m|
 	 			metafields.each do |metafield|
@@ -38,8 +35,7 @@ logger.info meta
 	 			end
 	 		end
 		end
-logger.info id
-		@productz.reject! { |p| id.include? p.id }
+		@results.reject! { |p| id.include? p.id }
 		#render :json => @products
 		#format.json { render action: 'product_type_products' }
 	end

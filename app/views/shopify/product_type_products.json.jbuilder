@@ -1,5 +1,5 @@
 metafields = Metafield.where(:product_type => @product_type)
-json.array! @productz do |product|
+json.array! @results do |product|
 	json.id product.id
 	json.vendor product.vendor
 	json.title product.title
