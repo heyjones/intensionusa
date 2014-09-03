@@ -4,7 +4,7 @@ class SizesController < ApplicationController
   # GET /sizes
   # GET /sizes.json
   def index
-    @sizes = Size.all
+    @sizes = Size.where(category_id: params[:category_id])
   end
 
   # GET /sizes/1
