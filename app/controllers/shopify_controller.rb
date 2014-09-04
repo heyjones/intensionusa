@@ -24,7 +24,7 @@ class ShopifyController < ApplicationController
 		id = []
 		@results = @products.to_a
 		@results.each do |product|
-			metafields = product.metafields
+			metafields = ShopifyAPI.throttle { product.metafields }
 	 		meta.each do |m|
 	 			metafields.each do |metafield|
 	 				if m[0] == metafield.key
@@ -100,7 +100,7 @@ class ShopifyController < ApplicationController
 #	loop through each product and remove based on metafields
 	id = []
 	products.each do |product|
-		metafields = product.metafields
+		metafields = ShopifyAPI.throttle { product.metafields }
  		meta.each do |m|
  			metafields.each do |metafield|
  				if m[0] == metafield.key
