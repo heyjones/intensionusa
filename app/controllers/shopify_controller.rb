@@ -3,13 +3,13 @@ class ShopifyController < ApplicationController
 	skip_before_filter :verify_authenticity_token
 
 	def product_types
-		@product_types = ShopifyAPI::Product.find(:all).map(&:product_type).uniq
+		@product_types = ShopifyAPI.throttle { ShopifyAPI::Product.find(:all).map(&:product_type).uniq }
 		render :json => @product_types
 	end
 	def product_type_products
 		@product_type = params[:product_type]
 #		grab products, metafields and params
-		@products = ShopifyAPI::Product.find(:all, :params => {:product_type => @product_type})
+		@products = ShopifyAPI.throttle { ShopifyAPI::Product.find(:all, :params => {:product_type => @product_type}) }
 		@metafields = Metafield.where(:product_type => @product_type)
 #		build an array of metafields / params
 		meta = []
@@ -41,12 +41,12 @@ class ShopifyController < ApplicationController
 	end
 
 	def products
-		@products = ShopifyAPI::Product.find(:all)
+		@products = ShopifyAPI.throttle { ShopifyAPI::Product.find(:all) }
 		render :json => @products
 	end
 
 	def product
-		@product = ShopifyAPI::Product.find(params[:id])
+		@product = ShopifyAPI.throttle { ShopifyAPI::Product.find(params[:id]) }
 		@metafields = Metafield.where(:product_type => @product.product_type)
 		respond_to do |format|
 			format.html { render action: 'product' }
@@ -55,7 +55,7 @@ class ShopifyController < ApplicationController
 	end
 
 	def product_variant
-		@product = ShopifyAPI::Product.find(params[:id])
+		@product = ShopifyAPI.throttle { ShopifyAPI::Product.find(params[:id]) }
 		@product.variants << ShopifyAPI::Variant.new({
 			:option1 => SecureRandom.hex,
 			:price => params[:price]
@@ -78,7 +78,7 @@ class ShopifyController < ApplicationController
   def find_your_wheelset
 
 #	grab products, metafields and params
-	@products = ShopifyAPI::Product.find(:all, :params => {:product_type => 'Wheelsets'})
+	@products = ShopifyAPI.throttle { ShopifyAPI::Product.find(:all, :params => {:product_type => 'Wheelsets'}) }
 	@metafields = Metafield.where(:product_type => 'Wheelsets')
 	@params = params.to_a
 

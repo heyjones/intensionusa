@@ -53,4 +53,5 @@ end
 # gem 'debugger', group: [:development, :test]
 
 gem 'shopify_api'
+gem 'shopify-api-throttle', :git => 'git://github.com/bradrees/shopify-api-throttle.git'
 gem 'rack-cors', :require => 'rack/cors'
