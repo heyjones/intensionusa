@@ -20,7 +20,7 @@
 		</thead>
 		<tbody>
 	<%
-		products = ShopifyAPI::Product.find(:all, :params => {:product_type => product_type})
+		products = ShopifyAPI.throttle { ShopifyAPI::Product.find(:all, :params => {:product_type => product_type}) }
 		products.each do |product|
 	%>
 		<tr>
@@ -32,7 +32,7 @@
 			</td>
 			<td><%= product.vendor %></td>
 			<%
-				meta = product.metafields
+				meta = ShopifyAPI.throttle { product.metafields }
 				metafields.each do |metafield|
 					m = meta.select { |x| x.key.eql? metafield.key }
 			%>

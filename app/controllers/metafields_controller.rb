@@ -16,12 +16,12 @@ class MetafieldsController < ApplicationController
   # GET /metafields/new
   def new
     @metafield = Metafield.new
-    @product_types = ShopifyAPI::Product.find(:all).map(&:product_type).uniq
+    @product_types = ShopifyAPI.throttle { ShopifyAPI::Product.find(:all).map(&:product_type).uniq }
   end
 
   # GET /metafields/1/edit
   def edit
-    @product_types = ShopifyAPI::Product.find(:all).map(&:product_type).uniq
+    @product_types = ShopifyAPI.throttle { ShopifyAPI::Product.find(:all).map(&:product_type).uniq }
   end
 
   # POST /metafields

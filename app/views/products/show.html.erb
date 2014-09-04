@@ -37,7 +37,7 @@
 		
 		<%= form_tag({ controller: 'products', action: 'update' }, method: 'post') do %>
 			<%
-				meta = @product.metafields
+				meta = ShopifyAPI.throttle { @product.metafields }
 				@metafields.each do |metafield|
 					m = meta.select { |x| x.key.eql? metafield.key }
 					value = ''

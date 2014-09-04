@@ -20,12 +20,12 @@ class ModelsController < ApplicationController
   # GET /models/new
   def new
     @model = Model.new
-  	@products = ShopifyAPI::Product.find(:all)
+  	@products = ShopifyAPI.throttle { ShopifyAPI::Product.find(:all) }
   end
 
   # GET /models/1/edit
   def edit
-  	@products = ShopifyAPI::Product.find(:all)
+  	@products = ShopifyAPI.throttle { ShopifyAPI::Product.find(:all) }
   end
 
   # POST /models

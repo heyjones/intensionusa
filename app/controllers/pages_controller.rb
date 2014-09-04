@@ -3,7 +3,7 @@ class PagesController < ApplicationController
   	@categories = Category.all
   	@materials = Material.all
   	@makes = Make.all
-  	@products = ShopifyAPI::Product.find(:all)
+  	@products = ShopifyAPI.throttle { ShopifyAPI::Product.find(:all) }
   	@metafields = Metafield.uniq.pluck(:product_type)
   end
 end
